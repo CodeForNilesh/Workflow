@@ -10,3 +10,15 @@ D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.dll
 D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.DAL\obj\Debug\net5.0\ref\WorkFlow.DAL.dll
 D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.pdb
 D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.csproj.AssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\bin\Debug\net5.0\WorkFlow.DAL.deps.json
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\bin\Debug\net5.0\WorkFlow.DAL.dll
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\bin\Debug\net5.0\ref\WorkFlow.DAL.dll
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\bin\Debug\net5.0\WorkFlow.DAL.pdb
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.csproj.AssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.AssemblyInfoInputs.cache
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.AssemblyInfo.cs
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.dll
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\ref\WorkFlow.DAL.dll
+C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\obj\Debug\net5.0\WorkFlow.DAL.pdb
