@@ -1,0 +1,17 @@
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.csproj.AssemblyReference.cache
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.GeneratedMSBuildEditorConfig.editorconfig
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.AssemblyInfoInputs.cache
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.AssemblyInfo.cs
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.csproj.CoreCompileInputs.cache
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.WorkflowManagement.deps.json
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.WorkflowManagement.dll
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\ref\WorkFlow.WorkflowManagement.dll
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.WorkflowManagement.pdb
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.DAL.dll
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.UserManagement.dll
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.DAL.pdb
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\bin\Debug\net5.0\WorkFlow.UserManagement.pdb
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.csproj.CopyComplete
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.dll
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\ref\WorkFlow.WorkflowManagement.dll
+D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.Entity.Workflow\obj\Debug\net5.0\WorkFlow.WorkflowManagement.pdb
