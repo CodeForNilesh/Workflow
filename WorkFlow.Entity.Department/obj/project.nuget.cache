@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "7H2aDvOny99lANV5I8oHx6GwtQXzJNnOJp0g0tmuo6Yu+jz1PpB132xvt9bt6Ak5PY3HpEy2SKkGbE1z1PtxbQ==",
+  "dgSpecHash": "S+2I6msHxh8uZx8SYUt3S+q8EwDdk7a089up8etez2EcRDdBy+q6thPDmEZp1i3oKtAUrDw2vZovNvkdVSrBVg==",
   "success": true,
-  "projectFilePath": "D:\\WorkFlow\\DAL\\WorkFlow\\WorkFlow\\WorkFlow.Entity.Department\\WorkFlow.UserManagement.csproj",
+  "projectFilePath": "C:\\Users\\Admin\\Documents\\GitHub\\Workflow\\WorkFlow.Entity.Department\\WorkFlow.UserManagement.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\microsoft.netcore.targets\\1.1.0\\microsoft.netcore.targets.1.1.0.nupkg.sha512",

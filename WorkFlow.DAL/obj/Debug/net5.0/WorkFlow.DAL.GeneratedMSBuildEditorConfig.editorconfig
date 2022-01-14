@@ -7,4 +7,4 @@ build_property.PublishSingleFile =
 build_property.IncludeAllContentForSelfExtract = 
 build_property._SupportedPlatformList = Android,iOS,Linux,macOS,Windows
 build_property.RootNamespace = WorkFlow.DAL
-build_property.ProjectDir = D:\WorkFlow\DAL\WorkFlow\WorkFlow\WorkFlow.DAL\
+build_property.ProjectDir = C:\Users\Admin\Documents\GitHub\Workflow\WorkFlow.DAL\
