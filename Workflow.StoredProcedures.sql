@@ -28,7 +28,7 @@ BEGIN
 
 	SELECT PS.UserID, PS.FirstName, PS.MiddleName, PS.LastName, PS.Email, PS.Mobile, PS.City, PS.[State], PS.District, PS.Pincode FROM STAGE ST INNER JOIN STAGEREVIEWERS SR ON ST.StageID = SR.StageID
 	INNER JOIN PERSONS PS ON SR.ReviewerID = PS.UserID 
-	WHERE ST.WorkflowID = @WorkflowID
+	WHERE ST.WorkflowID = @WorkflowID AND PS.IsActive = 1
 
 	SELECT DT.DepartmentID, DT.DepartmentName, DT.City, DT.[State], DT.District, DT.Pincode, DT.Latitude, DT.Longitude, DT.DeptOwner, DT.ContactDetails FROM STAGE ST INNER JOIN STAGEREVIEWERS SR ON ST.StageID = SR.StageID
 	INNER JOIN DEPARTMENT DT ON SR.DepartmentID = DT.DepartmentID 
