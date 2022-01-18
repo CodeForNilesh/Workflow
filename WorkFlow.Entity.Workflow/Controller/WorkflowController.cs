@@ -89,27 +89,28 @@ namespace WorkFlow.WorkflowManagement.Controller
                 Stages = (from c in ds.Tables[1].AsEnumerable()
                           select new Stage
                           {
-                              StageID = c.Field<int>("WorkflowID"),
+
+                              StageID = c.Field<int>("StageID"),
                               Title = c.Field<string>("Title"),
                               Description = c.Field<string>("Description"),
                               ReviewTime = c.Field<DateTime>("ReviewTime"),
                               EscalationTime = c.Field<DateTime>("EscalationTime"),
-                              Reviewers = GetPersons(ds.Tables[2]),
-                              ReviewerDepartments = GetDepartments(ds.Tables[3]),
-                              Escalators = GetPersons(ds.Tables[4]),
-                              EscalatorDepartments = GetDepartments(ds.Tables[5]),
+                              Reviewers = GetPersons(c.Field<int>("StageID"), ds.Tables[2]),
+                              ReviewerDepartments = GetDepartments(c.Field<int>("StageID"), ds.Tables[3]),
+                              Escalators = GetPersons(c.Field<int>("StageID"), ds.Tables[4]),
+                              EscalatorDepartments = GetDepartments(c.Field<int>("StageID"), ds.Tables[5]),
                               IsAnyApprover = c.Field<Boolean>("IsAnyApprover"),
                               ActionCommentMandetory = c.Field<Boolean>("ActionCommentMandetory")
                           }).ToList();
             }
             return Stages;
         }
-        private List<Department> GetDepartments(DataTable departmentTable)
+        private List<Department> GetDepartments(int StageID, DataTable departmentTable)
         {
             List<Department> department = new List<Department>();
             if (departmentTable?.Rows.Count > 0)
             {
-                department = (from c in departmentTable.AsEnumerable()
+                department = (from c in departmentTable.Select("StageID=" + StageID).AsEnumerable()
                               select new Department
                               {
                                   DepartmentID = c.Field<int>("DepartmentID"),
@@ -127,25 +128,25 @@ namespace WorkFlow.WorkflowManagement.Controller
             return department;
         }
 
-        private List<Person> GetPersons(DataTable personTable)
+        private List<Person> GetPersons(int StageID, DataTable personTable)
         {
             List<Person> Persons = new List<Person>();
             if (personTable?.Rows.Count > 0)
             {
-                Persons = (from c in personTable.AsEnumerable()
-                             select new Person
-                             {
-                                 UserID = c.Field<int>("UserID"),
-                                 FirstName = c.Field<string>("FirstName"),
-                                 MiddleName = c.Field<string>("MiddleName"),
-                                 LastName = c.Field<string>("LastName"),
-                                 Email = c.Field<string>("Email"),
-                                 Mobile = c.Field<string>("Mobile"),
-                                 City = c.Field<string>("City"),
-                                 State = c.Field<string>("State"),
-                                 District = c.Field<string>("District"),
-                                 Pincode = c.Field<string>("Pincode")
-                             }).ToList();
+                Persons = (from c in personTable.Select("StageID=" + StageID).AsEnumerable()
+                           select new Person
+                           {
+                               UserID = c.Field<int>("UserID"),
+                               FirstName = c.Field<string>("FirstName"),
+                               MiddleName = c.Field<string>("MiddleName"),
+                               LastName = c.Field<string>("LastName"),
+                               Email = c.Field<string>("Email"),
+                               Mobile = c.Field<string>("Mobile"),
+                               City = c.Field<string>("City"),
+                               State = c.Field<string>("State"),
+                               District = c.Field<string>("District"),
+                               Pincode = c.Field<string>("Pincode")
+                           }).ToList();
             }
             return Persons;
         }

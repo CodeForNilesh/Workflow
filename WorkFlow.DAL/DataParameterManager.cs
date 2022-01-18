@@ -49,7 +49,7 @@ namespace WorkFlow.DAL
                 DbType = dbType,
                 ParameterName = name,
                 Direction = direction,
-                Value = value??DBNull.Value
+                Value = value ?? DBNull.Value
             };
         }
 
@@ -61,7 +61,7 @@ namespace WorkFlow.DAL
                 Size = size,
                 ParameterName = name,
                 Direction = direction,
-                Value = value
+                Value = value ?? DBNull.Value
             };
         }
 
@@ -72,7 +72,7 @@ namespace WorkFlow.DAL
                 DbType = dbType,
                 ParameterName = name,
                 Direction = direction,
-                Value = value
+                Value = value ?? DBNull.Value
             };
         }
 
@@ -84,7 +84,7 @@ namespace WorkFlow.DAL
                 Size = size,
                 ParameterName = name,
                 Direction = direction,
-                Value = value
+                Value = value ?? DBNull.Value
             };
         }
     }
