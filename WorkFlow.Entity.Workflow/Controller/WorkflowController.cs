@@ -25,16 +25,6 @@ namespace WorkFlow.WorkflowManagement.Controller
             };
             dbMAnager.Insert(sql, CommandType.Text, parameters);
         }
-        //public void UpdateWorkflow(int WorkflowID, string Title, string Details)
-        //{
-        //    IDbDataParameter[] parameters = new IDbDataParameter[]
-        //    {
-        //        dbMAnager.CreateParameter("@WorkflowID",    WorkflowID, DbType.Int32),
-        //        dbMAnager.CreateParameter("@Title",         Title, DbType.String),
-        //        dbMAnager.CreateParameter("@Details",       Details, DbType.String)
-        //    };
-        //    dbMAnager.Update("usp_UpdateWorkflow", CommandType.StoredProcedure, parameters);
-        //}
 
         public List<Workflow> GetWorkflows(int WorkflowID)
         {
@@ -93,8 +83,8 @@ namespace WorkFlow.WorkflowManagement.Controller
                               StageID = c.Field<int>("StageID"),
                               Title = c.Field<string>("Title"),
                               Description = c.Field<string>("Description"),
-                              ReviewTime = c.Field<DateTime>("ReviewTime"),
-                              EscalationTime = c.Field<DateTime>("EscalationTime"),
+                              ReviewTime = c.Field<int>("ReviewTime"),
+                              EscalationTime = c.Field<int>("EscalationTime"),
                               Reviewers = GetPersons(c.Field<int>("StageID"), ds.Tables[2]),
                               ReviewerDepartments = GetDepartments(c.Field<int>("StageID"), ds.Tables[3]),
                               Escalators = GetPersons(c.Field<int>("StageID"), ds.Tables[4]),

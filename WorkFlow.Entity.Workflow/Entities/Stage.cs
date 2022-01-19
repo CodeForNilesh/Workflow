@@ -17,8 +17,8 @@ namespace WorkFlow.WorkflowManagement.Entities
         public List<Department> EscalatorDepartments { get; set; }
         public bool ActionCommentMandetory { get; set; }
 
-        public DateTime ReviewTime { get; set; }
-        public DateTime EscalationTime { get; set; }
+        public int ReviewTime { get; set; }
+        public int EscalationTime { get; set; }
         public bool IsAnyApprover { get; set; }
     }
 }
