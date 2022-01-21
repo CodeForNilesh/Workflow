@@ -1,0 +1,25 @@
+1] User selected workflow. Added description and created request. 
+	-- Create entry in RequestWorkflow with entire Workflow JSON in WorkflowInstance field
+2] Next Stage in workflow will get created in RequestStage and CurrentStageID is updated in RequestWorkflow.
+3] Reviewers can see requests on Review page to be approved/rejected. 
+	-- Status for each request can be Pending, Approved, Rejected. However Reviewer should see only those requestss which are in with Pending Status
+4] Reviewer can approve stage or add comments. At this time record will get inserted in RequestStageReviewer.
+5] Reviewer can push review entry to another reviewer. 
+	Reviewer can be updated for current request and this will create [If not created RequestStageReviewer entry]/ update ReviewerID in 
+	existing RequestStageReviewer entry for current Request and Stage
+	OR 
+	Reviewer can be updated for Stage in StageReviewerstable
+		-----------In that case do we need to update WorkflowInstance field in RequestWorkflow?
+		----------- Also is there need to update StageReviewers table for current stage?
+6] If stage approved by reviewer need to check if Stage.IsAnyApprover set to true or False. 
+		If Stage.IsAnyApprover set to true goto step [2]
+		If all approvers for current stage approved the stage goto step [2] for next stage
+7] If stage rejected by one of the approver 
+		------------ What to do?
+8] If Today - RequestWorkflow.CreatedOn > Stage.ReviewTime [in days] and no comment added or apprved/rejected by any reviewer for stage then escalators will get notification
+		------------ Need to add field CreatedOn in RequestWorkflow as we are creating RequestStage entry when reviewer add comment or approve it.
+		------------ Is there need of ReviewTime in RequestStageReviewer table.
+9] What Escalator will do? What to do with EscalationTime?
+10] While creating Next stage in step [2] check if use updated stage from Stage table or Stage from WorkflowInstance field of RequestWorkflow table.
+		------------ Shall we create field as UseUpdatedStage in Workflow table [For all Stages] Or in Stage table [For that particular Stage].
+11] 

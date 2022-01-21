@@ -1,6 +1,8 @@
-1] User selected workflow. Added description and created request. -- Create entry in RequestWorkflow with entire Workflow JSON in WorkflowInstance field
+1] User selected workflow. Added description and created request. 
+	-- Create entry in RequestWorkflow with entire Workflow JSON in WorkflowInstance field
 2] Next Stage in workflow will get created in RequestStage and CurrentStageID is updated in RequestWorkflow.
-3] All reviewers can see request on Review page for that reviewer. [Still there is no record created in RequestStageReviewer]
+3] Reviewers can see requests on Review page to be approved/rejected. 
+	-- Status for each request can be Pending, Approved, Rejected. However Reviewer should see only those requestss which are in with Pending Status
 4] Reviewer can approve stage or add comments. At this time record will get inserted in RequestStageReviewer.
 5] Reviewer can push review entry to another reviewer. 
 	Reviewer can be updated for current request and this will create [If not created RequestStageReviewer entry]/ update ReviewerID in 
@@ -21,3 +23,8 @@
 10] While creating Next stage in step [2] check if use updated stage from Stage table or Stage from WorkflowInstance field of RequestWorkflow table.
 		------------ Shall we create field as UseUpdatedStage in Workflow table [For all Stages] Or in Stage table [For that particular Stage].
 11] 
+
+API-
+
+RouteRequest
+GetRequests

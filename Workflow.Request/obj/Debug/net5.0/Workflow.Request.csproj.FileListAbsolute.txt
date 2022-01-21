@@ -1,0 +1,15 @@
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\bin\Debug\net5.0\Workflow.Request.deps.json
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\bin\Debug\net5.0\Workflow.Request.dll
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\bin\Debug\net5.0\ref\Workflow.Request.dll
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\bin\Debug\net5.0\Workflow.Request.pdb
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\bin\Debug\net5.0\WorkFlow.DAL.dll
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\bin\Debug\net5.0\WorkFlow.DAL.pdb
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.csproj.AssemblyReference.cache
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.AssemblyInfoInputs.cache
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.AssemblyInfo.cs
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.csproj.CoreCompileInputs.cache
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.csproj.CopyComplete
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.dll
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\ref\Workflow.Request.dll
+C:\Users\Admin\Documents\GitHub\Workflow\Workflow.Request\obj\Debug\net5.0\Workflow.Request.pdb
