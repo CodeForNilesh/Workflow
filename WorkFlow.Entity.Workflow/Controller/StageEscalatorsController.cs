@@ -17,12 +17,12 @@ namespace WorkFlow.WorkflowManagement.Controller
 
         public void AddStageEscalators(int StageID, int EscalatorID, int DepartmentID)
         {
-            string sql = "INSERT INTO StageEscalators (StageID, EscalatorID, DepartmentID) VALUES (@StageID, @EscalatorID, @DepartmentID)";
+            string sql = "INSERT INTO StageEscalators (STAGEID, ESCALATORID, DEPARTMENTID) VALUES (@STAGEID, @ESCALATORID, @DEPARTMENTID)";
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@StageID",                   StageID, DbType.Int32),
-                dbMAnager.CreateParameter("@EscalatorID",               EscalatorID, DbType.Int32),
-                dbMAnager.CreateParameter("@DepartmentID",              DepartmentID, DbType.Int32)
+                dbMAnager.CreateParameter("@STAGEID",                   StageID, DbType.Int32),
+                dbMAnager.CreateParameter("@ESCALATORID",               EscalatorID, DbType.Int32),
+                dbMAnager.CreateParameter("@DEPARTMENTID",              DepartmentID, DbType.Int32)
             };
             dbMAnager.Insert(sql, CommandType.Text, parameters);
         }
@@ -30,10 +30,10 @@ namespace WorkFlow.WorkflowManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@StageEscalatorID",          StageEscalatorID, DbType.Int32),
-                dbMAnager.CreateParameter("@StageID",                   StageID, DbType.Int32),
-                dbMAnager.CreateParameter("@EscalatorID",               EscalatorID, DbType.Int32),
-                dbMAnager.CreateParameter("@DepartmentID",              DepartmentID, DbType.Int32)
+                dbMAnager.CreateParameter("@STAGEESCALATORID",          StageEscalatorID, DbType.Int32),
+                dbMAnager.CreateParameter("@STAGEID",                   StageID, DbType.Int32),
+                dbMAnager.CreateParameter("@ESCALATORID",               EscalatorID, DbType.Int32),
+                dbMAnager.CreateParameter("@DEPARTMENTID",              DepartmentID, DbType.Int32)
             };
             dbMAnager.Update("usp_UpdateStageEscalators", CommandType.StoredProcedure, parameters);
         }

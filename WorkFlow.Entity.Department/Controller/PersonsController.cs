@@ -16,18 +16,18 @@ namespace WorkFlow.UserManagement.Controller
         public void AddPerson(string FirstName, string MiddleName, string LastName, string Email,
             string Mobile, string City, string State, string District, string Pincode)
         {
-            string sql = "INSERT INTO Persons (FirstName, MiddleName, LastName ,Email, Mobile, City, State, District, Pincode) VALUES ( @FirstName, @MiddleName, @LastName ,@Email, @Mobile, @City, @State, @District, @Pincode)";
+            string sql = "INSERT INTO PERSONS (FIRSTNAME, MIDDLENAME, LASTNAME ,EMAIL, MOBILE, CITY, STATE, DISTRICT, PINCODE) VALUES ( @FIRSTNAME, @MIDDLENAME, @LASTNAME ,@EMAIL, @MOBILE, @CITY, @STATE, @DISTRICT, @PINCODE)";
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@FirstName",     FirstName, DbType.String),
-                dbMAnager.CreateParameter("@MiddleName",    MiddleName, DbType.String),
-                dbMAnager.CreateParameter("@LastName",      LastName, DbType.String),
-                dbMAnager.CreateParameter("@Email",         Email, DbType.String),
-                dbMAnager.CreateParameter("@Mobile",        Mobile, DbType.String),
-                dbMAnager.CreateParameter("@City",          City, DbType.String),
-                dbMAnager.CreateParameter("@State",         State, DbType.String),
-                dbMAnager.CreateParameter("@District",      District, DbType.String),
-                dbMAnager.CreateParameter("@Pincode",       Pincode, DbType.String)
+                dbMAnager.CreateParameter("@FIRSTNAME",     FirstName, DbType.String),
+                dbMAnager.CreateParameter("@MIDDLENAME",    MiddleName, DbType.String),
+                dbMAnager.CreateParameter("@LASTNAME",      LastName, DbType.String),
+                dbMAnager.CreateParameter("@EMAIL",         Email, DbType.String),
+                dbMAnager.CreateParameter("@MOBILE",        Mobile, DbType.String),
+                dbMAnager.CreateParameter("@CITY",          City, DbType.String),
+                dbMAnager.CreateParameter("@STATE",         State, DbType.String),
+                dbMAnager.CreateParameter("@DISTRICT",      District, DbType.String),
+                dbMAnager.CreateParameter("@PINCODE",       Pincode, DbType.String)
             };
             dbMAnager.Insert(sql, CommandType.Text, parameters);
         }
@@ -75,16 +75,16 @@ namespace WorkFlow.UserManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@UserID",        UserID, DbType.Int32),
-                dbMAnager.CreateParameter("@FirstName",     FirstName, DbType.String),
-                dbMAnager.CreateParameter("@MiddleName",    MiddleName, DbType.String),
-                dbMAnager.CreateParameter("@LastName",      LastName, DbType.String),
-                dbMAnager.CreateParameter("@Email",         Email, DbType.String),
-                dbMAnager.CreateParameter("@Mobile",        Mobile, DbType.String),
-                dbMAnager.CreateParameter("@City",          City, DbType.String),
-                dbMAnager.CreateParameter("@State",         State, DbType.String),
-                dbMAnager.CreateParameter("@District",      District, DbType.String),
-                dbMAnager.CreateParameter("@Pincode",       Pincode, DbType.String)
+                dbMAnager.CreateParameter("@USERID",        UserID, DbType.Int32),
+                dbMAnager.CreateParameter("@FIRSTNAME",     FirstName, DbType.String),
+                dbMAnager.CreateParameter("@MIDDLENAME",    MiddleName, DbType.String),
+                dbMAnager.CreateParameter("@LASTNAME",      LastName, DbType.String),
+                dbMAnager.CreateParameter("@EMAIL",         Email, DbType.String),
+                dbMAnager.CreateParameter("@MOBILE",        Mobile, DbType.String),
+                dbMAnager.CreateParameter("@CITY",          City, DbType.String),
+                dbMAnager.CreateParameter("@STATE",         State, DbType.String),
+                dbMAnager.CreateParameter("@DISTRICT",      District, DbType.String),
+                dbMAnager.CreateParameter("@PINCODE",       Pincode, DbType.String)
             };
             dbMAnager.Update("usp_UpdatePerson", CommandType.StoredProcedure, parameters);
         }

@@ -23,3 +23,8 @@
 10] While creating Next stage in step [2] check if use updated stage from Stage table or Stage from WorkflowInstance field of RequestWorkflow table.
 		------------ Shall we create field as UseUpdatedStage in Workflow table [For all Stages] Or in Stage table [For that particular Stage].
 11] 
+
+API-
+
+RouteRequest
+GetRequests

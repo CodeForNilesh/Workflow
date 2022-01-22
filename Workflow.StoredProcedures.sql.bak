@@ -1,6 +1,90 @@
 USE [WorkFlow1]
 GO
-/****** Object:  StoredProcedure [dbo].[usp_GetEntireWorkflow]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_ApproveStage]    Script Date: 21-01-2022 09:06:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_ApproveStage]
+@RequestStageID int,
+@ReviewerID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE RequestStageReviewer 
+	SET
+		Approval = 'APPROVED'
+	WHERE RequestStageID = @RequestStageID AND ReviewerID = @ReviewerID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_CreateWorkflowRequest]    Script Date: 21-01-2022 09:06:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_CreateWorkflowRequest]
+@WorkflowID int,
+@Desciption VARCHAR(500),
+@WorkflowInstance VARCHAR(500)
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @RequestID as int;
+	DECLARE @RequestStageID as int;
+	DECLARE @ReviewTime as int;
+	
+	SET @RequestID  = 0;
+
+	INSERT INTO RequestWorkflow (WorkflowID, Desciption, WorkflowInstance) VALUES (@WorkflowID, @Desciption, @WorkflowInstance);
+	SET @RequestID = @@IDENTITY;
+
+	IF @RequestID <> 0
+	BEGIN
+		CREATE TABLE #CurrentRequestStage(RequestWorkflow INT, StageID INT, StageOrder INT, ReviewTime INT, IsAnyApprover BIT, IsStageApprovalMandetory BIT, ActionCommentMandetory BIT);
+
+		INSERT INTO #CurrentRequestStage 
+		SELECT @RequestID, StageID, StageOrder, ReviewTime, IsAnyApprover, IsStageApprovalMandetory, ActionCommentMandetory FROM STAGE 
+		WHERE StageOrder = 1 AND WorkflowID = @WorkflowID
+
+		INSERT INTO RequestStage (RequestID, StageID, StageOrder, IsAnyApprover, IsStageApprovalMandetory, ActionCommentMandetory)
+		SELECT @RequestID, StageID, StageOrder, IsAnyApprover, IsStageApprovalMandetory, ActionCommentMandetory FROM #CurrentRequestStage
+		WHERE StageOrder = 1
+	
+		SELECT @ReviewTime = ReviewTime FROM #CurrentRequestStage
+
+		SET @RequestStageID = @@IDENTITY;
+
+		UPDATE RequestWorkflow
+		SET CurrentStageID = @RequestStageID
+		WHERE RequestID = @RequestID
+
+		CREATE TABLE #RequestStageReviewer (RequestStageID int, ReviewerID int, ReviewTime Date, Approval bit, Comment VARCHAR(255), CreatedOn Date)
+
+		INSERT INTO RequestStageReviewer (RequestStageID, ReviewerID, ReviewTime, Approval, Comment, CreatedOn)
+		SELECT @RequestStageID, ReviewerID, @ReviewTime, 'PENDING', '', GETDATE() FROM StageReviewers
+		WHERE StageID in (SELECT StageID from Stage WHERE WorkflowID = @WorkflowID)
+	END
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_GetEntireWorkflow]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -38,7 +122,43 @@ BEGIN
 
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_GetWorkflowMeta]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_GetRequests]    Script Date: 21-01-2022 09:06:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_GetRequests] 
+@ReviewerID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+	
+	-- WorkflowRequest
+	SELECT RW.WorkflowID, RW.RequestID, RW.CurrentStageID, RW.Desciption, RW.WorkflowInstance FROM RequestStage RS LEFT OUTER JOIN RequestStageReviewer RSR ON RS.RequestStageID = RSR.RequestStageID
+	INNER JOIN RequestWorkflow RW ON RW.RequestID = RS.RequestID
+	WHERE RSR.ReviewerID = @ReviewerID
+
+	-- Stage
+	--SELECT RS.RequestStageID, RS.RequestID, RS.StageID, RS.StageOrder, RS.IsStageApprovalMandetory, RS.IsAnyApprover, RS.ActionCommentMandetory FROM RequestStage RS LEFT OUTER JOIN RequestStageReviewer RSR ON RS.RequestStageID = RSR.RequestStageID
+	--INNER JOIN RequestWorkflow RW ON RW.RequestID = RS.RequestID
+	--WHERE RSR.ReviewerID = @ReviewerID
+
+	-- Reviewer
+	--SELECT RSR.ReviewerID, RSR.RequestStageID, RSR.RequestStageReviewerID, RSR.Approval, RSR.Comment, RSR.ReviewTime FROM RequestStage RS LEFT OUTER JOIN RequestStageReviewer RSR ON RS.RequestStageID = RSR.RequestStageID
+	--INNER JOIN RequestWorkflow RW ON RW.RequestID = RS.RequestID
+	--WHERE RSR.ReviewerID = @ReviewerID
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_GetWorkflowMeta]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -55,7 +175,139 @@ BEGIN
 	SELECT WorkflowID, Title, Details FROM Workflow WHERE (@WorkflowID IS NULL OR WorkflowID = @WorkflowID)
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdateDepartment]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_GetWorkflowStage]    Script Date: 21-01-2022 09:06:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE PROCEDURE [dbo].[usp_GetWorkflowStage]
+(
+@WorkflowStageID int,
+@WorkflowID int,
+@StageID int,
+@StageOrder int,
+@IsStageApprovalMandetory BIT
+)
+AS
+BEGIN
+    SET NOCOUNT ON
+	DECLARE @SQLQuery AS NVARCHAR(4000)  
+	DECLARE @ParamDefinition AS NVARCHAR(2000) 
+
+	Set @SQLQuery ='SELECT * FROM WorkflowStage WHERE true ' 
+	IF (@WorkflowStageID Is Not Null) and (@WorkflowStageID <> 0)
+		SET @SQLQuery = 'AND WorkflowStageID = @WorkflowStageID '
+
+	IF (@WorkflowID Is Not Null) and (@WorkflowID <> 0)
+		SET @SQLQuery = @SQLQuery + ' AND WorkflowID = @WorkflowID'
+
+	IF (@StageID Is Not Null) and (@StageID <> 0)
+		SET @SQLQuery = @SQLQuery + ' AND StageID = @StageID'
+
+	IF (@StageOrder Is Not Null) and (@StageOrder <> 0)
+		SET @SQLQuery = @SQLQuery + ' AND StageOrder = @StageOrder'		
+
+	IF (@IsStageApprovalMandetory Is Not Null)
+		SET @SQLQuery = @SQLQuery + ' AND IsStageApprovalMandetory = @IsStageApprovalMandetory'	
+		
+	SET @ParamDefinition = '@WorkflowStageID int, @WorkflowID int, @StageID int, @StageOrder int, @IsStageApprovalMandetory BIT'
+
+	EXECUTE sp_Executesql @SQLQuery, @ParamDefinition, @WorkflowStageID, @WorkflowID, @StageID, @StageOrder, @IsStageApprovalMandetory
+
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_RejectStage]    Script Date: 21-01-2022 09:06:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_RejectStage]
+@RequestStageID int,
+@ReviewerID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	UPDATE RequestStageReviewer 
+	SET
+		Approval = 'REJECTED'
+	WHERE RequestStageID = @RequestStageID AND ReviewerID = @ReviewerID
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_RouteStage]    Script Date: 21-01-2022 09:06:58 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+
+
+
+-- =============================================
+-- Author:		<Author,,Name>
+-- Create date: <Create Date,,>
+-- Description:	<Description,,>
+-- =============================================
+CREATE PROCEDURE [dbo].[usp_RouteStage]
+@RequestID int
+AS
+BEGIN
+	-- SET NOCOUNT ON added to prevent extra result sets from
+	-- interfering with SELECT statements.
+	SET NOCOUNT ON;
+
+	DECLARE @WorkflowID as int;
+	DECLARE @CurrentRequestStageOrder as int;
+	DECLARE @MaxStageOrder as int;
+	DECLARE @RequestStageID as int;
+	DECLARE @ReviewTime as int;
+	
+	SET @WorkflowID  = 0;
+
+	
+	--Check if it was last stage
+	SELECT @CurrentRequestStageOrder = MAX(StageOrder) from RequestStage WHERE RequestID = @RequestID
+		
+	SELECT @MaxStageOrder = MAX(S.StageOrder) from Stage S INNER JOIN RequestWorkflow RW ON S.WorkflowID = RW.WorkflowID
+	WHERE RW.RequestID = @RequestID
+
+	--if Current Request Stage is not last stage for workflow
+	IF @CurrentRequestStageOrder < @MaxStageOrder
+	BEGIN
+		
+		CREATE TABLE #CurrentRequestStage(RequestWorkflow INT, StageID INT, StageOrder INT, ReviewTime INT, IsAnyApprover BIT, IsStageApprovalMandetory BIT, ActionCommentMandetory BIT);
+
+		INSERT INTO #CurrentRequestStage 
+		SELECT @RequestID, StageID, StageOrder, ReviewTime, IsAnyApprover, IsStageApprovalMandetory, ActionCommentMandetory FROM STAGE 
+		WHERE WorkflowID = @WorkflowID AND StageOrder = @CurrentRequestStageOrder + 1
+
+		INSERT INTO RequestStage (RequestID, StageID, StageOrder, IsAnyApprover, IsStageApprovalMandetory, ActionCommentMandetory)
+		SELECT @RequestID, StageID, StageOrder, IsAnyApprover, IsStageApprovalMandetory, ActionCommentMandetory FROM #CurrentRequestStage
+	
+		SELECT @ReviewTime = ReviewTime FROM #CurrentRequestStage
+
+		SET @RequestStageID = @@IDENTITY;
+
+		UPDATE RequestWorkflow 
+		SET CurrentStageID = @RequestStageID
+		WHERE RequestID = @RequestID
+
+		CREATE TABLE #RequestStageReviewer (RequestStageID int, ReviewerID int, ReviewTime Date, Approval bit, Comment VARCHAR(255), CreatedOn Date)
+
+		INSERT INTO RequestStageReviewer (RequestStageID, ReviewerID, ReviewTime, Approval, Comment, CreatedOn)
+		SELECT @RequestStageID, ReviewerID, @ReviewTime, 'PENDING', '', GETDATE() FROM StageReviewers
+		WHERE StageID in (SELECT StageID from Stage WHERE WorkflowID = @WorkflowID)
+	END
+	
+END
+GO
+/****** Object:  StoredProcedure [dbo].[usp_UpdateDepartment]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,7 +345,7 @@ BEGIN
 END
 
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdatePerson]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_UpdatePerson]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -130,7 +382,7 @@ END
 
 
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdateStage]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_UpdateStage]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -164,7 +416,7 @@ BEGIN
 	WHERE StageID = @StageID
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdateStageEscalators]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_UpdateStageEscalators]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -187,7 +439,7 @@ BEGIN
 	WHERE @StageEscalatorID = StageEscalatorID
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdateStageReviewers]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_UpdateStageReviewers]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -212,7 +464,7 @@ BEGIN
 	WHERE StageReviewerID = @StageReviewerID
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdateWorkflow]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_UpdateWorkflow]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -233,7 +485,7 @@ BEGIN
 	WHERE WorkflowID = @WorkflowID
 END
 GO
-/****** Object:  StoredProcedure [dbo].[usp_UpdateWorkflowStage]    Script Date: 19-01-2022 14:11:03 ******/
+/****** Object:  StoredProcedure [dbo].[usp_UpdateWorkflowStage]    Script Date: 21-01-2022 09:06:58 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON

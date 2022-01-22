@@ -17,11 +17,11 @@ namespace WorkFlow.WorkflowManagement.Controller
         }
         public void AddWorkflow(string Title, string Details)
         {
-            string sql = "INSERT INTO Workflow (Title, Details) VALUES (@Title, @Details)";
+            string sql = "INSERT INTO Workflow (Title, Details) VALUES (@TITLE, @DETAILS)";
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@Title",     Title, DbType.String),
-                dbMAnager.CreateParameter("@Details",   Details, DbType.String)
+                dbMAnager.CreateParameter("@TITLE",     Title, DbType.String),
+                dbMAnager.CreateParameter("@DETAILS",   Details, DbType.String)
             };
             dbMAnager.Insert(sql, CommandType.Text, parameters);
         }
@@ -30,7 +30,7 @@ namespace WorkFlow.WorkflowManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@WorkflowID",                WorkflowID, DbType.Int32),
+                dbMAnager.CreateParameter("@WORKFLOWID",                WorkflowID, DbType.Int32),
             };
             DataTable dt = dbMAnager.GetDataTable("usp_GetWorkflowMeta", CommandType.StoredProcedure, parameters);
             List<Workflow> workflows = new List<Workflow>();
@@ -50,7 +50,7 @@ namespace WorkFlow.WorkflowManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@WorkflowID",                WorkflowID, DbType.Int32),
+                dbMAnager.CreateParameter("@WORKFLOWID",                WorkflowID, DbType.Int32),
             };
             DataSet ds = dbMAnager.GetDataSet("usp_GetEntireWorkflow", CommandType.StoredProcedure, parameters);
             Workflow workFlow = null;

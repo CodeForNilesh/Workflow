@@ -26,5 +26,60 @@
 
 API-
 
-RouteRequest
-GetRequests
+CreateWorkflowRequest ------ 
+RouteRequest---------------- 
+GetRequests ()-------------- 
+ApproveStage --------------- 
+RejectStage ---------------- 
+
+ResolveReviewer() ---------- 
+ResolveDepartment(Get DepartmentOwner)
+
+ApproveStage
+RejectStage
+CompleteRequest
+
+----------------------------------------------------------------------
+STORED PROCEDURES FLOW
+
+ApproveStage - [@RequestStageID, @ReviewerID] --- DONE
+
+1] Reviewer/Department member marked RequestStageReviewer.ApprovalStatus as APPROVED
+2] IF RequestStage.IsAnyApprover is 1 [Any Approvers] 
+	UPDATE RequestStage SET RequestStageStatus = 2 WHERE 
+	Goto RouteStage(RequestID)
+3] IF RequestStage.IsAnyApprover is 0 [All Approvers]
+	IF all other reviewers for this stage approved the stage
+		RequestStage.RequestStageStatus = 2
+		Goto RouteStage(RequestID)
+	ELSE IF RequestStage.RequestStageStatus = 0
+		RequestStage.RequestStageStatus = 1
+
+RejectStage - [@RequestStageID, @ReviewerID]
+1] Reviewer/Department member marked RequestStageReviewer.ApprovalStatus as Rejected 
+	RequestStage.RequestStageStatus = 3
+	GOTO CompleteRequest(RequestID, 'REJECTED')
+	
+
+RouteStage - [RequestID]
+1] IF CURRENT RequestStage IS LAST RequestStage 
+   [SELECT * FROM STAGE WHERE StageOrder = (SELECT RS.STAGEORDER FROM RequestStage RS INNER JOIN RequestWorkflow RW 
+    ON RS.RequestID = RW.RequestID AND RW.CurrentStageID = RS.RequestStageID)]
+		IF CURRENT RequestStage.RequestStageStatus = [2 => APPROVED]
+			GOTO CompleteRequest(RequestID, 'APPROVED')
+		ELSE IF CURRENT RequestStage IS REJECTED
+			GOTO CompleteRequest(RequestID, 'REJECTED')
+	ELSE
+		IF CURRENT RequestStage.RequestStageStatus = [2 => APPROVED]
+			INSERT NEXT RequestStage from STAGE FOR WORKFLOWTYPE
+			NextRequestStageID = @@IDENTITY
+			INSERT RequestStageReviewer FOR RequestStage JUST INSERTED
+			UPDATE RequestWorkflow SET CurrentStageID = NextRequestStageID
+		ELSE IF CURRENT RequestStage.RequestStageStatus = [3 => REJECTED]
+			GOTO CompleteRequest(RequestID, 'REJECTED')
+
+CompleteRequest - [@RequestID, @Status]
+1] UPDATE RequestWorkflow SET RequestWorkflow = @Status
+   WHERE RequestID = @RequestID	
+   
+

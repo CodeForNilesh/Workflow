@@ -12,13 +12,13 @@ namespace WorkFlow.WorkflowManagement.Controller
 
         public void AddStageReviewers(int StageID, int ReviewerID, int DepartmentID, bool ActionCommentMandetory)
         {
-            string sql = "INSERT INTO StageReviewers (StageID, ReviewerID, DepartmentID, ActionCommentMandetory) VALUES (@StageID, @ReviewerID, @DepartmentID, @ActionCommentMandetory)";
+            string sql = "INSERT INTO StageReviewers (StageID, ReviewerID, DepartmentID, ActionCommentMandetory) VALUES (@STAGEID, @REVIEWERID, @DEPARTMENTID, @ACTIONCOMMENTMANDETORY)";
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@StageID",                   StageID, DbType.Int32),
-                dbMAnager.CreateParameter("@ReviewerID",                ReviewerID, DbType.Int32),
-                dbMAnager.CreateParameter("@DepartmentID",              DepartmentID, DbType.Int32),
-                dbMAnager.CreateParameter("@ActionCommentMandetory",    ActionCommentMandetory, DbType.Boolean)
+                dbMAnager.CreateParameter("@STAGEID",                   StageID, DbType.Int32),
+                dbMAnager.CreateParameter("@REVIEWERID",                ReviewerID, DbType.Int32),
+                dbMAnager.CreateParameter("@DEPARTMENTID",              DepartmentID, DbType.Int32),
+                dbMAnager.CreateParameter("@ACTIONCOMMENTMANDETORY",    ActionCommentMandetory, DbType.Boolean)
             };
             dbMAnager.Insert(sql, CommandType.Text, parameters);
         }
@@ -27,10 +27,10 @@ namespace WorkFlow.WorkflowManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@StageReviewerID",           StageReviewerID, DbType.Int32),
-                dbMAnager.CreateParameter("@StageID",                   StageID, DbType.Int32),
-                dbMAnager.CreateParameter("@ReviewerID",                ReviewerID, DbType.Int32),
-                dbMAnager.CreateParameter("@DepartmentID",              DepartmentID, DbType.Int32)            
+                dbMAnager.CreateParameter("@STAGEREVIEWERID",           StageReviewerID, DbType.Int32),
+                dbMAnager.CreateParameter("@STAGEID",                   StageID, DbType.Int32),
+                dbMAnager.CreateParameter("@REVIEWERID",                ReviewerID, DbType.Int32),
+                dbMAnager.CreateParameter("@DEPARTMENTID",              DepartmentID, DbType.Int32)            
             };
             dbMAnager.Update("usp_UpdateStageReviewers", CommandType.StoredProcedure, parameters);
         }

@@ -17,9 +17,9 @@ namespace Workflow.Request
         { 
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@WorkflowID",         WorkflowID, DbType.Int32),
-                dbMAnager.CreateParameter("@Desciption",         Desciption, DbType.String),
-                dbMAnager.CreateParameter("@WorkflowInstance",   WorkflowInstance, DbType.String)
+                dbMAnager.CreateParameter("@WORKFLOWID",         WorkflowID, DbType.Int32),
+                dbMAnager.CreateParameter("@DESCIPTION",         Desciption, DbType.String),
+                dbMAnager.CreateParameter("@WORKFLOWINSTANCE",   WorkflowInstance, DbType.String)
             };
             dbMAnager.Update("usp_CreateWorkflowRequest", CommandType.StoredProcedure, parameters);
         }
@@ -28,7 +28,7 @@ namespace Workflow.Request
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@ReviewerID",         ReviewerID, DbType.Int32),
+                dbMAnager.CreateParameter("@REVIEWERID",         ReviewerID, DbType.Int32),
 
             };
             DataTable dt = dbMAnager.GetDataTable("usp_GetRequests", CommandType.StoredProcedure, parameters);
@@ -53,8 +53,8 @@ namespace Workflow.Request
 
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@RequestStageID",     RequestStageID, DbType.Int32),
-                dbMAnager.CreateParameter("@ReviewerID",         ReviewerID, DbType.Int32)
+                dbMAnager.CreateParameter("@REQUESTSTAGEID",     RequestStageID, DbType.Int32),
+                dbMAnager.CreateParameter("@REVIEWERID",         ReviewerID, DbType.Int32)
             };
             dbMAnager.Update("usp_ApproveStage", CommandType.StoredProcedure, parameters);
         }
@@ -63,12 +63,10 @@ namespace Workflow.Request
 
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@RequestStageID",     RequestStageID, DbType.Int32),
-                dbMAnager.CreateParameter("@ReviewerID",         ReviewerID, DbType.Int32)
+                dbMAnager.CreateParameter("@REQUESTSTAGEID",     RequestStageID, DbType.Int32),
+                dbMAnager.CreateParameter("@REVIEWERID",         ReviewerID, DbType.Int32)
             };
             dbMAnager.Update("usp_RejectStage", CommandType.StoredProcedure, parameters);
         }
     }
-
-
 }

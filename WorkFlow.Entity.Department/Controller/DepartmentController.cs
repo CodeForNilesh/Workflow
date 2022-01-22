@@ -19,18 +19,18 @@ namespace WorkFlow.UserManagement.Controller
         public void AddDepartment(string DepartmentName, string City, string State, string District, string Pincode, 
             string Latitude, string Longitude, int DeptOwner, string ContactDetails)
         {
-            string sql = "INSERT INTO Department (DepartmentName, City, State, District, Pincode, Latitude, Longitude, DeptOwner, ContactDetails) VALUES (@DepartmentName, @City, @State, @District, @Pincode, @Latitude, @Longitude, @DeptOwner, @ContactDetails)";
+            string sql = "INSERT INTO DEPARTMENT (DEPARTMENTNAME, CITY, STATE, DISTRICT, PINCODE, LATITUDE, LONGITUDE, DEPTOWNER, CONTACTDETAILS) VALUES (@DEPARTMENTNAME, @CITY, @STATE, @DISTRICT, @PINCODE, @LATITUDE, @LONGITUDE, @DEPTOWNER, @CONTACTDETAILS)";
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@DepartmentName",    DepartmentName, DbType.String),
-                dbMAnager.CreateParameter("@City",              City, DbType.String),
-                dbMAnager.CreateParameter("@State",             State, DbType.String),
-                dbMAnager.CreateParameter("@District",          District, DbType.String),
-                dbMAnager.CreateParameter("@Pincode",           Pincode, DbType.String),
-                dbMAnager.CreateParameter("@Latitude",          Latitude, DbType.String),
-                dbMAnager.CreateParameter("@Longitude",         Longitude, DbType.String),
-                dbMAnager.CreateParameter("@DeptOwner",         DeptOwner, DbType.Int32),
-                dbMAnager.CreateParameter("@ContactDetails",    ContactDetails, DbType.String)
+                dbMAnager.CreateParameter("@DEPARTMENTNAME",    DepartmentName, DbType.String),
+                dbMAnager.CreateParameter("@CITY",              City, DbType.String),
+                dbMAnager.CreateParameter("@STATE",             State, DbType.String),
+                dbMAnager.CreateParameter("@DISTRICT",          District, DbType.String),
+                dbMAnager.CreateParameter("@PINCODE",           Pincode, DbType.String),
+                dbMAnager.CreateParameter("@LATITUDE",          Latitude, DbType.String),
+                dbMAnager.CreateParameter("@LONGITUDE",         Longitude, DbType.String),
+                dbMAnager.CreateParameter("@DEPTOWNER",         DeptOwner, DbType.Int32),
+                dbMAnager.CreateParameter("@CONTACTDETAILS",    ContactDetails, DbType.String)
 
             };
             dbMAnager.Insert(sql, CommandType.Text, parameters);
@@ -41,16 +41,16 @@ namespace WorkFlow.UserManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@DepartmentID",            DepartmentID, DbType.Int32),
-                dbMAnager.CreateParameter("@DepartmentName",    DepartmentName, DbType.String),
-                dbMAnager.CreateParameter("@City",              City, DbType.String),
-                dbMAnager.CreateParameter("@State",             State, DbType.String),
-                dbMAnager.CreateParameter("@District",          District, DbType.String),
-                dbMAnager.CreateParameter("@Pincode",           Pincode, DbType.String),
-                dbMAnager.CreateParameter("@Latitude",          Latitude, DbType.String),
-                dbMAnager.CreateParameter("@Longitude",         Longitude, DbType.String),
-                dbMAnager.CreateParameter("@DeptOwner",         DeptOwner, DbType.Int32),
-                dbMAnager.CreateParameter("@ContactDetails",    ContactDetails, DbType.String)
+                dbMAnager.CreateParameter("@DEPARTMENTID",            DepartmentID, DbType.Int32),
+                dbMAnager.CreateParameter("@DEPARTMENTNAME",    DepartmentName, DbType.String),
+                dbMAnager.CreateParameter("@CITY",              City, DbType.String),
+                dbMAnager.CreateParameter("@STATE",             State, DbType.String),
+                dbMAnager.CreateParameter("@DISTRICT",          District, DbType.String),
+                dbMAnager.CreateParameter("@PINCODE",           Pincode, DbType.String),
+                dbMAnager.CreateParameter("@LATITUDE",          Latitude, DbType.String),
+                dbMAnager.CreateParameter("@LONGITUDE",         Longitude, DbType.String),
+                dbMAnager.CreateParameter("@DEPTOWNER",         DeptOwner, DbType.Int32),
+                dbMAnager.CreateParameter("@CONTACTDETAILS",    ContactDetails, DbType.String)
             };
 
             DataTable dt = dbMAnager.GetDataTable("usp_GetDepartments", CommandType.StoredProcedure, parameters);
@@ -80,16 +80,16 @@ namespace WorkFlow.UserManagement.Controller
         {
             IDbDataParameter[] parameters = new IDbDataParameter[]
             {
-                dbMAnager.CreateParameter("@DepartmentID",      DepartmentID, DbType.Int32),
-                dbMAnager.CreateParameter("@DepartmentName",    DepartmentName, DbType.String),
-                dbMAnager.CreateParameter("@City",              City, DbType.String),
-                dbMAnager.CreateParameter("@State",             State, DbType.String),
-                dbMAnager.CreateParameter("@District",          District, DbType.String),
-                dbMAnager.CreateParameter("@Pincode",           Pincode, DbType.String),
-                dbMAnager.CreateParameter("@Latitude",          Latitude, DbType.String),
-                dbMAnager.CreateParameter("@Longitude",         Longitude, DbType.String),
-                dbMAnager.CreateParameter("@DeptOwner",         DeptOwner, DbType.Int32),
-                dbMAnager.CreateParameter("@ContactDetails",    ContactDetails, DbType.String)
+                dbMAnager.CreateParameter("@DEPARTMENTID",      DepartmentID, DbType.Int32),
+                dbMAnager.CreateParameter("@DEPARTMENTNAME",    DepartmentName, DbType.String),
+                dbMAnager.CreateParameter("@CITY",              City, DbType.String),
+                dbMAnager.CreateParameter("@STATE",             State, DbType.String),
+                dbMAnager.CreateParameter("@DISTRICT",          District, DbType.String),
+                dbMAnager.CreateParameter("@PINCODE",           Pincode, DbType.String),
+                dbMAnager.CreateParameter("@LATITUDE",          Latitude, DbType.String),
+                dbMAnager.CreateParameter("@LONGITUDE",         Longitude, DbType.String),
+                dbMAnager.CreateParameter("@DEPTOWNER",         DeptOwner, DbType.Int32),
+                dbMAnager.CreateParameter("@CONTACTDETAILS",    ContactDetails, DbType.String)
             };
             dbMAnager.Update("usp_UpdateDepartment", CommandType.StoredProcedure, parameters);
         }
